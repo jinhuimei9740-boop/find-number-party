@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>找数字聚会</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">线上小游戏</p>
+          <h1>找数字聚会</h1>
+        </div>
+        <div class="room-actions">
+          <button id="newRoomBtn" class="ghost" type="button">新房间</button>
+          <button id="copyLinkBtn" type="button">复制邀请链接</button>
+        </div>
+      </section>
+
+      <section class="layout">
+        <aside class="panel setup-panel">
+          <div class="room-code">
+            <span>房间</span>
+            <strong id="roomCode">----</strong>
+          </div>
+
+          <form id="joinForm" class="join-form">
+            <label>
+              昵称
+              <input id="playerName" maxlength="18" placeholder="输入昵称" autocomplete="name" />
+            </label>
+            <button type="submit">加入游戏</button>
+          </form>
+
+          <div class="players" id="players"></div>
+
+          <form id="settingsForm" class="settings">
+            <div class="field">
+              <span>人数</span>
+              <div class="segmented" id="playerCap">
+                <button type="button" data-value="1">1</button>
+                <button type="button" data-value="2">2</button>
+                <button type="button" data-value="3">3</button>
+                <button type="button" data-value="4" class="active">4</button>
+              </div>
+            </div>
+
+            <div class="range-row">
+              <label>
+                起始
+                <input id="minNumber" type="number" min="0" step="1" value="0" />
+              </label>
+              <label>
+                结束
+                <input id="maxNumber" type="number" min="1" step="1" value="100" />
+              </label>
+            </div>
+
+            <label>
+              图纸里有几个数字
+              <input id="numberCount" type="number" min="1" step="1" value="30" />
+            </label>
+
+            <button id="startBtn" type="submit">生成图纸并开始</button>
+          </form>
+
+          <div class="game-actions">
+            <button id="endBtn" class="danger" type="button">手动结束</button>
+            <button id="resetBtn" class="ghost" type="button">回到设置</button>
+          </div>
+        </aside>
+
+        <section class="play-area">
+          <div class="target-strip">
+            <div>
+              <span>当前要找</span>
+              <strong id="currentTarget">-</strong>
+            </div>
+            <div>
+              <span>进度</span>
+              <strong id="progress">0 / 0</strong>
+            </div>
+            <div>
+              <span>状态</span>
+              <strong id="phaseLabel">等待开始</strong>
+            </div>
+          </div>
+
+          <div id="message" class="message"></div>
+          <section id="resultPanel" class="result-panel hidden">
+            <div>
+              <span class="result-kicker">本局冠军</span>
+              <h2 id="winnerTitle">等待结果</h2>
+              <p id="winnerDetail"></p>
+            </div>
+            <div class="result-actions">
+              <button id="replayBtn" type="button">再来一局</button>
+              <button id="openSettingsBtn" class="ghost" type="button">重新设置</button>
+            </div>
+          </section>
+          <div id="board" class="board empty">
+            <div class="empty-state">
+              先加入房间，设置人数、数字区间和图纸数量，然后开始找数字。
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="settingsDialog" class="settings-dialog">
+      <form id="dialogSettingsForm" method="dialog">
+        <div class="dialog-head">
+          <div>
+            <span class="result-kicker">重新设置</span>
+            <h2>新一局参数</h2>
+          </div>
+          <button id="closeSettingsBtn" class="ghost icon-button" type="button" aria-label="关闭">×</button>
+        </div>
+
+        <div class="field">
+          <span>人数</span>
+          <div class="segmented" id="dialogPlayerCap">
+            <button type="button" data-value="1">1</button>
+            <button type="button" data-value="2">2</button>
+            <button type="button" data-value="3">3</button>
+            <button type="button" data-value="4">4</button>
+          </div>
+        </div>
+
+        <div class="range-row">
+          <label>
+            起始
+            <input id="dialogMinNumber" type="number" min="0" step="1" />
+          </label>
+          <label>
+            结束
+            <input id="dialogMaxNumber" type="number" min="1" step="1" />
+          </label>
+        </div>
+
+        <label>
+          图纸里有几个数字
+          <input id="dialogNumberCount" type="number" min="1" step="1" />
+        </label>
+
+        <button type="submit">按新设置开始</button>
+      </form>
+    </dialog>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
